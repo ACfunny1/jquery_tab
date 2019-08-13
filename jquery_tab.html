@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        .box {
+            margin-top: 100px;
+        }
+        .box::after {
+            content: '';
+            display: block;
+            clear: both;
+
+        }
+        .tab {
+            float: left;
+            text-align: center;
+            padding: 10px 25px;
+            background-color: rgb(221,221,221);
+            border-top: 1px solid black;
+            border-left: 1px solid black;
+        }
+        .tab:last-child {
+            border-right: 1px solid black;
+        }
+
+        .content {
+            border: 1px solid black;
+            width: 41px;
+            padding: 20px 100px;
+        }
+
+        .tab-box .content .active {
+            display: block;
+        }
+
+        .panel {
+            display: none;
+        }
+
+
+        .tab-box .box .active {
+            background-color: rgb(255,255,255);
+        }
+    </style>
+</head>
+<body>
+    <div class="tab-box">
+        <div class="box">
+            <div class="tab">1</div>
+            <div class="tab">2</div>
+            <div class="tab">3</div>
+            <div class="tab">4</div>
+        </div>
+        <div class="content">
+            <div class="panel">panel1</div>
+            <div class="panel">panel2</div>
+            <div class="panel">panel3</div>
+            <div class="panel">panel4</div>
+        </div>
+    </div>
+
+    <div class="tab-box">
+        <div class="box">
+            <div class="tab">1</div>
+            <div class="tab">2</div>
+            <div class="tab">3</div>
+            <div class="tab">4</div>
+        </div>
+        <div class="content">
+            <div class="panel">panel1</div>
+            <div class="panel">panel2</div>
+            <div class="panel">panel3</div>
+            <div class="panel">panel4</div>
+        </div>
+    </div>
+
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+
+<script type="text/javascript">
+    $('.tab-box').click(function(e){
+        $(e.target).siblings().removeClass('active')
+        $(e.target).addClass('active')
+        var index = $(e.target).index()
+        $(e.target).parent()
+                    .siblings()
+                    .children()
+                    .eq(index).addClass('active')
+                    .siblings().removeClass('active')
+    })
+</script>
+
+
+</body>
+</html>
