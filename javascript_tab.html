@@ -48,12 +48,10 @@
 <body>
     <div class="tab-box">
         <div class="box">
-            <div class="ok">
             <div class="tab">1</div>
             <div class="tab">2</div>
             <div class="tab">3</div>
             <div class="tab">4</div>
-            </div>
         </div>
         <div class="content">
             <div class="panel">panel1</div>
@@ -79,40 +77,43 @@
     </div>
 
 <script type="text/javascript">
+	/*给所有.tab加上下标*/
     for(var i = 0;i < document.querySelectorAll('.tab').length;i++){
         var tabIndex = document.querySelectorAll('.tab')[i]
         tabIndex.index = i
     }
-
+	/*给所有.panel加上下标*/
     for(var i = 0;i<document.querySelectorAll('.panel').length;i++){
         var panelIndex = document.querySelectorAll('.panel')[i]
         panelIndex.index = i
     }
-    document.querySelectorAll('.tab-box').forEach(function(g){
+
+    document.querySelectorAll('.tab-box').forEach(function(g){/*遍历两个.tab-box*/
         g.addEventListener('click',function(e){
-            if(String(e.target.className).indexOf('tab')!= -1){
+            if(String(e.target.className).indexOf('tab')!= -1){/*判断如果class含有tab字符,表示点击了正确的区域，不然点击错误区域报错*/
             var event = e.target
-            var wang = event.parentNode.childNodes
-            wang.forEach(function(f){
-                if(f.nodeType == 1){
-                    child = f
-                    child.forEach(function(o){
-                        console.log()
-                    })
+            var tabRemove = event.parentNode.childNodes/*点击元素的父元素的子元素*/
+            tabRemove.forEach(function(f){/*遍历每一个tabRemove*/
+                if(f.nodeType == 1){/*因为childNodes会有空白节点之类的，nodeType==1时，只选中元素节点*/
+                    f.classList.remove('active')/*先删除.active*/
                 }
             })
+            document.querySelectorAll('.tab')[e.target.index].classList.add('active')
 
-
-            
-
-            document.querySelectorAll('.panel').forEach(function(h){
-                h.classList.remove('active')
+            var panelRemove = event.parentNode.nextSibling
+            while(panelRemove.nodeType!=1){
+            	panelRemove = panelRemove.nextSibling
+            }
+            panelRemove.childNodes.forEach(function(h){
+            	if(h.nodeType == 1){
+            		h.classList.remove('active')
+            	}
             })
+
             document.querySelectorAll('.panel')[e.target.index].classList.add('active')
         }else{
-            console.log('不在点击区域')
+            console.log('不在点击区域')/*点击错误区域时提示代替报错*/
         }
-
 
         })
     })
